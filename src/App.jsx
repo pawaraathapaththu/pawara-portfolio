@@ -1,16 +1,16 @@
 import { useState, useEffect, useCallback } from "react";
 import { MotionConfig, AnimatePresence } from "framer-motion";
-import Preloader from "./components/Preloader";
-import BackgroundEffects from "./components/BackgroundEffects";
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import About from "./components/About";
-import Education from "./components/Education";
-import Skills from "./components/Skills";
-import Projects from "./components/Projects";
-import Certificates from "./components/Certificates";
-import Contact from "./components/Contact";
-import Footer from "./components/Footer";
+import Preloader from "./components/Preloader/Preloader";
+import BackgroundEffects from "./components/BackgroundEffects/BackgroundEffects";
+import Navbar from "./components/Navbar/Navbar";
+import Hero from "./components/Hero/Hero";
+import About from "./components/About/About";
+import Education from "./components/Education/Education";
+import Skills from "./components/Skills/Skills";
+import Projects from "./components/Projects/Projects";
+import Certificates from "./components/Certificates/Certificates";
+import Contact from "./components/Contact/Contact";
+import Footer from "./components/Footer/Footer";
 import { navLinks } from "./data/portfolioData";
 import "./App.css";
 

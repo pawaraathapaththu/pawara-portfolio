@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { GraduationCap, MapPin, Code2, Sparkles, Layers, Cpu } from "lucide-react";
-import { aboutData } from "../data/portfolioData";
+import { aboutData } from "../../data/portfolioData";
+import "./About.css";
 
 const highlightIcons = [GraduationCap, Sparkles, MapPin, Code2];
 

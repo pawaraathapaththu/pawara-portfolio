@@ -1,3 +1,5 @@
+import "./BrandLogo.css";
+
 function BrandLogo({ size = 34 }) {
   return (
     <span className="brand-logo">
@@ -28,7 +30,6 @@ function BrandLogo({ size = 34 }) {
           stroke="url(#paGrad)"
           strokeWidth="1.5"
         />
-        {/* Letter P */}
         <path
           d="M11 28V12H17.2C19.85 12 21.5 13.45 21.5 15.9C21.5 18.35 19.85 19.8 17.2 19.8H13.6"
           stroke="currentColor"
@@ -36,7 +37,6 @@ function BrandLogo({ size = 34 }) {
           strokeLinecap="round"
           strokeLinejoin="round"
         />
-        {/* Letter A */}
         <path
           d="M20.2 28L24.8 12L29.4 28M21.8 22.8H27.8"
           stroke="url(#paGrad)"

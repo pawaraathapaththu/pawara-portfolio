@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { GraduationCap, Calendar, MapPin, CheckCircle2 } from "lucide-react";
-import { educationData } from "../data/portfolioData";
+import { educationData } from "../../data/portfolioData";
+import "./Education.css";
 
 function Education() {
   return (

@@ -2,7 +2,8 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, MapPin, Send, AlertCircle, Info, CheckCircle2 } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
-import { personalInfo } from "../data/portfolioData";
+import { personalInfo } from "../../data/portfolioData";
+import "./Contact.css";
 
 const initialForm = {
   name: "",

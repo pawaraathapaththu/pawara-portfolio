@@ -1,7 +1,8 @@
 import { ArrowUp, Mail } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
-import BrandLogo from "./BrandLogo";
-import { navLinks, personalInfo } from "../data/portfolioData";
+import BrandLogo from "../BrandLogo/BrandLogo";
+import { navLinks, personalInfo } from "../../data/portfolioData";
+import "./Footer.css";
 
 function Footer() {
   const currentYear = new Date().getFullYear();

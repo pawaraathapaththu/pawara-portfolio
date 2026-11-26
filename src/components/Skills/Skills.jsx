@@ -11,7 +11,8 @@ import {
   FaGithub,
 } from "react-icons/fa";
 import { Webhook, Layout, Server, GitBranch } from "lucide-react";
-import { skillCategories } from "../data/portfolioData";
+import { skillCategories } from "../../data/portfolioData";
+import "./Skills.css";
 
 const skillIconMap = {
   react: { Icon: FaReact, color: "#38bdf8" },

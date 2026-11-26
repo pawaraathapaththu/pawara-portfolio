@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { Moon, Sun, Menu, X } from "lucide-react";
-import BrandLogo from "./BrandLogo";
-import { navLinks, personalInfo } from "../data/portfolioData";
+import BrandLogo from "../BrandLogo/BrandLogo";
+import { navLinks, personalInfo } from "../../data/portfolioData";
+import "./Navbar.css";
 
 function Navbar({ dark, onToggleTheme, activeSection }) {
   const [menuOpen, setMenuOpen] = useState(false);

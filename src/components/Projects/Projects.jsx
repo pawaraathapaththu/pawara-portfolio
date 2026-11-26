@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { FaGithub } from "react-icons/fa";
 import { ExternalLink, Layers, Sparkles, ImageIcon, Radio, ShoppingBag } from "lucide-react";
-import { projectsData } from "../data/portfolioData";
+import { projectsData } from "../../data/portfolioData";
+import "./Projects.css";
 
 function ProjectCard({ project, index }) {
   const isSingleFeatured = projectsData.length === 1;

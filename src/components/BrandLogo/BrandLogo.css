@@ -1,0 +1,31 @@
+.logo-link {
+  display: inline-flex;
+  align-items: center;
+}
+
+.brand-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-strong);
+}
+
+.brand-monogram {
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.logo-link:hover .brand-monogram {
+  transform: scale(1.06);
+}
+
+.brand-wordmark {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.brand-dot {
+  color: var(--accent);
+}

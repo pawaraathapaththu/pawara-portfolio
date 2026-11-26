@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ArrowRight, Download, Mail, MapPin, GraduationCap, Info } from "lucide-react";
 import { FaGithub, FaLinkedin, FaReact, FaNodeJs, FaPhp, FaDatabase } from "react-icons/fa";
-import { personalInfo } from "../data/portfolioData";
+import { personalInfo } from "../../data/portfolioData";
+import "./Hero.css";
 
 const floatingTechIcons = [
   { id: "react", label: "React.js", Icon: FaReact, color: "#38bdf8", className: "orbit-icon-1" },

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import "./BackgroundEffects.css";
 
 function BackgroundEffects() {
   return (

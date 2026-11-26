@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Award, ExternalLink, Calendar, FileCheck2 } from "lucide-react";
-import { certificatesData } from "../data/portfolioData";
+import { certificatesData } from "../../data/portfolioData";
+import "./Certificates.css";
 
 function CertificateCard({ certificate, index }) {
   return (

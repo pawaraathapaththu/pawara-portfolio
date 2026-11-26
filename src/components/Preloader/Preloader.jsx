@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import "./Preloader.css";
 
 const TERMINAL_STEPS = [
   { threshold: 0, text: "Initializing portfolio..." },
@@ -59,7 +60,6 @@ function Preloader({ onComplete }) {
     const tick = (now) => {
       const elapsed = now - startTime;
       const ratio = Math.min(elapsed / durationMs, 1);
-      // Smooth ease-out curve for natural cinematic pacing
       const eased = 1 - Math.pow(1 - ratio, 2.2);
       const nextValue = Math.round(eased * 100);
       setProgress(nextValue);
@@ -96,15 +96,12 @@ function Preloader({ onComplete }) {
         transition: { duration: prefersReducedMotion ? 0.2 : 0.42, ease: [0.22, 1, 0.36, 1] },
       }}
     >
-      {/* Architectural Grid & Opposite-Corner Aurora Lighting */}
       <div className="preloader-grid" aria-hidden="true" />
       <div className="preloader-aurora preloader-aurora-cyan" aria-hidden="true" />
       <div className="preloader-aurora preloader-aurora-violet" aria-hidden="true" />
 
-      {/* Horizontal Scanning Light */}
       {!prefersReducedMotion && <div className="preloader-scanline" aria-hidden="true" />}
 
-      {/* Subtle Floating Background Particles */}
       {!prefersReducedMotion && (
         <div className="preloader-particles" aria-hidden="true">
           {AMBIENT_PARTICLES.map((p) => (
@@ -132,7 +129,6 @@ function Preloader({ onComplete }) {
         </div>
       )}
 
-      {/* Centered Monogram, Orbital Rings, Identity & Terminal */}
       <div className="preloader-center">
         <motion.div
           className="preloader-emblem-stage"
@@ -140,7 +136,6 @@ function Preloader({ onComplete }) {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
         >
-          {/* Three Concentric Orbital Rings */}
           <div className="orbital-ring orbital-ring-1" aria-hidden="true">
             <span className="orbit-particle orbit-particle-cyan" />
           </div>
@@ -151,7 +146,6 @@ function Preloader({ onComplete }) {
             <span className="orbit-particle orbit-particle-blue" />
           </div>
 
-          {/* Gradient Rounded-Square <PA/> Monogram */}
           <motion.div
             className="preloader-logo-box"
             animate={
@@ -188,7 +182,6 @@ function Preloader({ onComplete }) {
           <p className="preloader-subtitle">ASPIRING SOFTWARE ENGINEER</p>
         </motion.div>
 
-        {/* Developer Terminal Status & Synchronized Progress */}
         <motion.div
           className="preloader-terminal-panel"
           initial={{ opacity: 0, y: 10 }}
