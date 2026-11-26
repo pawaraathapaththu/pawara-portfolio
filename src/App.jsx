@@ -42,30 +42,49 @@ function App() {
 
   useEffect(() => {
     const sectionIds = navLinks.map((item) => item.id);
-    const elements = sectionIds
-      .map((id) => document.getElementById(id))
-      .filter(Boolean);
+    let rafId = null;
 
-    if (elements.length === 0) return;
+    const updateActiveSection = () => {
+      rafId = null;
+      const navEl = document.querySelector(".navbar-outer");
+      const navHeight = navEl ? navEl.getBoundingClientRect().height : 72;
+      const triggerOffset = navHeight + 36;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-
-        if (visible.length > 0) {
-          setActiveSection(visible[0].target.id);
-        }
-      },
-      {
-        rootMargin: "-25% 0px -55% 0px",
-        threshold: [0.1, 0.25, 0.5],
+      // Highlight the last section when scrolled to the bottom of the page
+      const atBottom =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 24;
+      if (atBottom) {
+        setActiveSection(sectionIds[sectionIds.length - 1]);
+        return;
       }
-    );
 
-    elements.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
+      let currentId = sectionIds[0];
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        if (el.getBoundingClientRect().top <= triggerOffset) {
+          currentId = id;
+        }
+      }
+      setActiveSection(currentId);
+    };
+
+    const handleScroll = () => {
+      if (rafId === null) {
+        rafId = requestAnimationFrame(updateActiveSection);
+      }
+    };
+
+    updateActiveSection();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll, { passive: true });
+
+    return () => {
+      if (rafId !== null) cancelAnimationFrame(rafId);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
   }, []);
 
   return (
@@ -87,6 +106,7 @@ function App() {
           dark={dark}
           onToggleTheme={() => setDark((prev) => !prev)}
           activeSection={activeSection}
+          onSelectSection={setActiveSection}
         />
 
         <main id="main-content">

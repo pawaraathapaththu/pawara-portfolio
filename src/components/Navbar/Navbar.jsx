@@ -5,7 +5,7 @@ import BrandLogo from "../BrandLogo/BrandLogo";
 import { navLinks, personalInfo } from "../../data/portfolioData";
 import "./Navbar.css";
 
-function Navbar({ dark, onToggleTheme, activeSection }) {
+function Navbar({ dark, onToggleTheme, activeSection, onSelectSection }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -32,7 +32,10 @@ function Navbar({ dark, onToggleTheme, activeSection }) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  const handleNavClick = () => {
+  const handleNavClick = (id) => {
+    if (onSelectSection && id) {
+      onSelectSection(id);
+    }
     setMenuOpen(false);
   };
 
@@ -46,7 +49,12 @@ function Navbar({ dark, onToggleTheme, activeSection }) {
 
       <header className={`navbar-outer ${scrolled ? "scrolled" : ""}`}>
         <nav className="navbar-floating" aria-label="Primary Navigation">
-          <a href="#home" className="logo-link" aria-label={`${personalInfo.fullName} Home`}>
+          <a
+            href="#home"
+            className="logo-link"
+            aria-label={`${personalInfo.fullName} Home`}
+            onClick={() => handleNavClick("home")}
+          >
             <BrandLogo size={32} />
           </a>
 
@@ -59,6 +67,7 @@ function Navbar({ dark, onToggleTheme, activeSection }) {
                   href={`#${item.id}`}
                   className={`nav-link ${isActive ? "active" : ""}`}
                   aria-current={isActive ? "page" : undefined}
+                  onClick={() => handleNavClick(item.id)}
                 >
                   <span>{item.label}</span>
                   {isActive && (
@@ -114,7 +123,7 @@ function Navbar({ dark, onToggleTheme, activeSection }) {
                     key={item.id}
                     href={`#${item.id}`}
                     className={`mobile-nav-link ${isActive ? "active" : ""}`}
-                    onClick={handleNavClick}
+                    onClick={() => handleNavClick(item.id)}
                   >
                     {item.label}
                   </a>
