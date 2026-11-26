@@ -31,17 +31,11 @@
   font-size: 13.5px;
   font-weight: 500;
   color: var(--muted);
-  transition: color 0.2s ease;
+  transition: color var(--transition-fast);
 }
 
 .footer-nav-link:hover {
   color: var(--accent);
-}
-
-.footer-right {
-  display: flex;
-  align-items: center;
-  gap: 12px;
 }
 
 .footer-socials {
@@ -54,38 +48,26 @@
   place-items: center;
   width: 38px;
   height: 38px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   background: var(--bg-elevated);
   border: 1px solid var(--border);
   color: var(--muted);
-  transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
 }
 
 .footer-social-btn:hover {
   color: var(--accent);
   border-color: var(--accent);
   transform: translateY(-2px);
+  box-shadow: 0 8px 18px -8px rgba(56, 189, 248, 0.45);
 }
 
-.back-to-top-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 9px 14px;
-  border-radius: 10px;
-  background: var(--bg-elevated);
-  border: 1px solid var(--border);
-  color: var(--text-strong);
-  font-size: 13.5px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
-}
-
-.back-to-top-btn:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  transform: translateY(-2px);
+.footer-social-btn:active {
+  transform: scale(0.97);
 }
 
 .footer-bottom {
@@ -93,4 +75,48 @@
   border-top: 1px solid var(--border);
   font-size: 13px;
   color: var(--muted);
+}
+
+/* Floating Back-to-Top Button */
+
+.floating-back-to-top {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 160;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  display: grid;
+  place-items: center;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-strong);
+  color: var(--accent);
+  backdrop-filter: blur(var(--blur-md));
+  -webkit-backdrop-filter: blur(var(--blur-md));
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  transition:
+    transform var(--transition-fast),
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.floating-back-to-top:hover {
+  transform: translateY(-3px);
+  background: var(--accent);
+  color: #050914;
+  box-shadow: var(--shadow-glow);
+}
+
+.floating-back-to-top:active {
+  transform: scale(0.97);
+}
+
+@media (max-width: 640px) {
+  .floating-back-to-top {
+    right: 16px;
+    bottom: 16px;
+  }
 }

@@ -9,12 +9,21 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 96px;
+  background-color: #070b14;
+  color: #e2e8f0;
+}
+
+html.light {
+  background-color: #f6f8fc;
+  color: #1e293b;
 }
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   min-width: 320px;
   line-height: 1.6;
+  background-color: inherit;
+  color: inherit;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -24,7 +33,8 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  letter-spacing: -0.025em;
 }
 
 a {

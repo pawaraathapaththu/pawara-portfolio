@@ -11,18 +11,6 @@
   user-select: none;
 }
 
-.preloader-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: radial-gradient(circle at 50% 50%, black 35%, transparent 82%);
-  -webkit-mask-image: radial-gradient(circle at 50% 50%, black 35%, transparent 82%);
-  pointer-events: none;
-}
-
 .preloader-aurora {
   position: absolute;
   width: 460px;

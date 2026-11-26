@@ -18,6 +18,22 @@ const engineeringPillars = [
   },
 ];
 
+const KEYWORD_PATTERN =
+  /(Bachelor of Information Technology \(BIT\)|University of Moratuwa|full-stack applications|React|RESTful APIs|MySQL|Node\.js|Socket\.IO|Software Engineer)/g;
+
+function HighlightedText({ text }) {
+  const parts = text.split(KEYWORD_PATTERN);
+  return parts.map((part, idx) =>
+    KEYWORD_PATTERN.test(part) ? (
+      <span key={idx} className="about-keyword">
+        {part}
+      </span>
+    ) : (
+      part
+    )
+  );
+}
+
 function About() {
   return (
     <section className="section" id="about">
@@ -30,71 +46,72 @@ function About() {
           transition={{ duration: 0.5 }}
         >
           <span className="section-eyebrow">{aboutData.eyebrow}</span>
-          <h2 className="section-title">{aboutData.heading}</h2>
+          <h2 className="section-title section-title-decorated">
+            <span>{aboutData.heading}</span>
+            <motion.span
+              className="section-title-underline"
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              aria-hidden="true"
+            />
+          </h2>
         </motion.div>
 
-        <div className="bento-grid">
+        <div className="about-two-col">
           <motion.div
-            className="glass-card bento-card bento-narrative"
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            className="glass-card about-narrative-card"
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="bento-card-label">Developer Profile</div>
-            <div className="bento-paragraphs">
+            <div className="about-card-label">Developer Profile</div>
+            <div className="about-paragraphs">
               {aboutData.paragraphs.map((paragraph, index) => (
                 <p key={index} className="about-paragraph">
-                  {paragraph}
+                  <HighlightedText text={paragraph} />
                 </p>
               ))}
+            </div>
+
+            <div className="about-info-chips">
+              {aboutData.highlights.map((item, idx) => {
+                const Icon = highlightIcons[idx % highlightIcons.length];
+                return (
+                  <div key={item.label} className="about-info-chip">
+                    <Icon size={15} aria-hidden="true" />
+                    <span className="about-chip-label">{item.label}:</span>
+                    <span className="about-chip-value">{item.value}</span>
+                  </div>
+                );
+              })}
             </div>
           </motion.div>
 
           <motion.div
-            className="bento-facts-grid"
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            className="about-side-column"
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 0.5, delay: 0.08 }}
+            transition={{ duration: 0.55, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           >
-            {aboutData.highlights.map((item, idx) => {
-              const Icon = highlightIcons[idx % highlightIcons.length];
+            {engineeringPillars.map((pillar) => {
+              const PillarIcon = pillar.icon;
               return (
-                <div key={item.label} className="glass-card bento-fact-card">
-                  <div className="highlight-icon">
-                    <Icon size={19} />
+                <div key={pillar.title} className="glass-card about-pillar-card">
+                  <div className="about-pillar-header">
+                    <div className="highlight-icon">
+                      <PillarIcon size={20} />
+                    </div>
+                    <h3 className="about-pillar-title">{pillar.title}</h3>
                   </div>
-                  <div>
-                    <span className="highlight-label">{item.label}</span>
-                    <p className="highlight-value">{item.value}</p>
-                  </div>
+                  <p className="about-pillar-detail">{pillar.detail}</p>
                 </div>
               );
             })}
           </motion.div>
-
-          {engineeringPillars.map((pillar, idx) => {
-            const PillarIcon = pillar.icon;
-            return (
-              <motion.div
-                key={pillar.title}
-                className="glass-card bento-card bento-pillar"
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.15 }}
-                transition={{ duration: 0.5, delay: 0.12 + idx * 0.06 }}
-              >
-                <div className="bento-pillar-header">
-                  <div className="highlight-icon">
-                    <PillarIcon size={19} />
-                  </div>
-                  <h3 className="bento-pillar-title">{pillar.title}</h3>
-                </div>
-                <p className="bento-pillar-detail">{pillar.detail}</p>
-              </motion.div>
-            );
-          })}
         </div>
       </div>
     </section>

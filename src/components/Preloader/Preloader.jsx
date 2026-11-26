@@ -52,7 +52,7 @@ function Preloader({ onComplete }) {
       return () => clearTimeout(timer);
     }
 
-    const durationMs = 1280;
+    const durationMs = 920;
     let frameId = null;
     let finishTimer = null;
     const startTime = performance.now();
@@ -69,7 +69,7 @@ function Preloader({ onComplete }) {
       } else {
         finishTimer = setTimeout(() => {
           onComplete();
-        }, 180);
+        }, 120);
       }
     };
 
@@ -93,10 +93,9 @@ function Preloader({ onComplete }) {
       exit={{
         opacity: 0,
         scale: prefersReducedMotion ? 1 : 1.04,
-        transition: { duration: prefersReducedMotion ? 0.2 : 0.42, ease: [0.22, 1, 0.36, 1] },
+        transition: { duration: prefersReducedMotion ? 0.2 : 0.32, ease: [0.22, 1, 0.36, 1] },
       }}
     >
-      <div className="preloader-grid" aria-hidden="true" />
       <div className="preloader-aurora preloader-aurora-cyan" aria-hidden="true" />
       <div className="preloader-aurora preloader-aurora-violet" aria-hidden="true" />
 

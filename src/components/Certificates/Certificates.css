@@ -8,7 +8,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: 32px;
+  margin-bottom: var(--space-4);
 }
 
 .cert-filter-pills {
@@ -22,20 +22,28 @@
   align-items: center;
   gap: 8px;
   padding: 8px 14px;
-  border-radius: 999px;
+  border-radius: var(--radius-full);
   font-size: 13.5px;
   font-weight: 500;
   color: var(--muted);
   background: var(--bg-elevated);
   border: 1px solid var(--border);
   cursor: pointer;
-  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    background-color var(--transition-fast),
+    transform var(--transition-fast);
 }
 
 .cert-filter-btn:hover {
   color: var(--text-strong);
   border-color: var(--border-strong);
   transform: translateY(-1px);
+}
+
+.cert-filter-btn:active {
+  transform: scale(0.97);
 }
 
 .cert-filter-btn.active {
@@ -51,7 +59,7 @@
   min-width: 20px;
   height: 20px;
   padding: 0 6px;
-  border-radius: 999px;
+  border-radius: var(--radius-full);
   font-family: "JetBrains Mono", monospace;
   font-size: 11px;
   font-weight: 600;
@@ -76,12 +84,12 @@
 .cert-search-input {
   width: 100%;
   padding: 10px 34px 10px 38px;
-  border-radius: 999px;
+  border-radius: var(--radius-full);
   background: var(--input-bg);
   border: 1px solid var(--border);
   color: var(--text-strong);
   font-size: 13.5px;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .cert-search-input::placeholder {
@@ -108,6 +116,10 @@
   cursor: pointer;
 }
 
+.cert-search-clear:active {
+  transform: scale(0.97);
+}
+
 /* ==========================================================================
    Certificates Grid & Cards (3-col desktop, 2-col tablet, 1-col mobile)
    ========================================================================== */
@@ -126,7 +138,7 @@
   max-width: calc((100% - 40px) / 3);
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  border-radius: var(--radius-lg);
 }
 
 .cert-card::before {
@@ -142,7 +154,7 @@
   -webkit-mask-composite: xor;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.28s ease;
+  transition: opacity var(--transition-base);
 }
 
 .cert-card:hover {
@@ -163,6 +175,7 @@
   justify-content: center;
   background: rgba(8, 13, 25, 0.65);
   border-bottom: 1px solid var(--border);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
   cursor: pointer;
 }
 
@@ -188,9 +201,9 @@
   inset: 0;
   display: grid;
   place-items: center;
-  background: rgba(5, 9, 20, 0.24);
+  background: linear-gradient(180deg, rgba(5, 9, 20, 0.2) 0%, rgba(5, 9, 20, 0.56) 100%);
   opacity: 0;
-  transition: opacity 0.22s ease;
+  transition: opacity var(--transition-fast);
 }
 
 .cert-thumb-wrap:hover .cert-thumb-overlay,
@@ -202,32 +215,18 @@
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  padding: 7px 13px;
-  border-radius: 999px;
-  font-size: 12px;
+  padding: 8px 14px;
+  border-radius: var(--radius-full);
+  font-size: 12.5px;
   font-weight: 600;
   color: #f8fafc;
-  background: rgba(15, 23, 42, 0.88);
+  background: rgba(15, 23, 42, 0.9);
   border: 1px solid rgba(56, 189, 248, 0.45);
-}
-
-.cert-category-badge {
-  align-self: flex-start;
-  display: inline-flex;
-  align-items: center;
-  padding: 3px 10px;
-  border-radius: 999px;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--accent);
-  background: rgba(56, 189, 248, 0.1);
-  border: 1px solid rgba(56, 189, 248, 0.24);
-  margin-bottom: 2px;
+  box-shadow: 0 8px 20px -6px rgba(2, 6, 23, 0.6);
 }
 
 .cert-body {
-  padding: 16px 18px 18px;
+  padding: 16px 18px 20px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -237,7 +236,46 @@
 .cert-header {
   display: flex;
   flex-direction: column;
+  gap: 5px;
+}
+
+.cert-badges-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+
+.cert-category-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.24);
+}
+
+.cert-featured-badge {
+  display: inline-flex;
+  align-items: center;
   gap: 4px;
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #c084fc;
+  background: rgba(168, 85, 247, 0.12);
+  border: 1px solid rgba(168, 85, 247, 0.28);
+}
+
+.portfolio.light .cert-featured-badge {
+  color: #7e22ce;
 }
 
 .cert-title {
@@ -269,7 +307,8 @@
 .cert-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 12px;
+  align-items: center;
+  gap: 6px 12px;
   font-size: 12px;
   color: var(--muted);
 }
@@ -283,14 +322,16 @@
 .cert-meta-id {
   font-family: "JetBrains Mono", monospace;
   font-size: 11px;
+  opacity: 0.72;
 }
 
 .cert-actions {
   margin-top: auto;
-  padding-top: 6px;
+  padding-top: 8px;
   display: flex;
   flex-wrap: wrap;
-  gap: 7px;
+  align-items: center;
+  gap: 8px;
 }
 
 .btn-xs {
@@ -317,7 +358,7 @@
   place-items: center;
   width: 52px;
   height: 52px;
-  border-radius: 14px;
+  border-radius: var(--radius-md);
   background: rgba(56, 189, 248, 0.12);
   color: var(--accent);
 }
@@ -335,7 +376,7 @@
 }
 
 /* ==========================================================================
-   Certificate Preview Modal
+   Certificate Lightbox Modal
    ========================================================================== */
 
 .cert-modal-backdrop {
@@ -345,14 +386,14 @@
   display: grid;
   place-items: center;
   padding: 20px;
-  background: rgba(2, 6, 23, 0.78);
+  background: rgba(2, 6, 23, 0.8);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
 
 .cert-modal-dialog {
   width: 100%;
-  max-width: 860px;
+  max-width: 880px;
   max-height: 92vh;
   display: flex;
   flex-direction: column;
@@ -382,7 +423,7 @@
 
 .cert-modal-title {
   font-size: 20px;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--text-strong);
 }
 
@@ -397,13 +438,13 @@
   place-items: center;
   width: 36px;
   height: 36px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   background: rgba(148, 163, 184, 0.1);
   border: 1px solid var(--border);
   color: var(--text-strong);
   cursor: pointer;
   flex-shrink: 0;
-  transition: border-color 0.2s ease, color 0.2s ease;
+  transition: border-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
 }
 
 .cert-modal-close:hover {
@@ -411,8 +452,13 @@
   color: var(--accent);
 }
 
+.cert-modal-close:active {
+  transform: scale(0.97);
+}
+
 .cert-modal-preview {
-  padding: 18px 22px;
+  position: relative;
+  padding: 18px 56px;
   overflow: auto;
   display: flex;
   justify-content: center;
@@ -430,6 +476,40 @@
   object-fit: contain;
   border-radius: 10px;
   box-shadow: 0 18px 40px -16px rgba(2, 6, 23, 0.55);
+  touch-action: pan-y;
+}
+
+.cert-modal-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid var(--border-strong);
+  color: #f8fafc;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.cert-modal-nav:hover {
+  background: var(--accent);
+  color: #050914;
+}
+
+.cert-modal-nav:active {
+  transform: translateY(-50%) scale(0.97);
+}
+
+.cert-modal-prev {
+  left: 12px;
+}
+
+.cert-modal-next {
+  right: 12px;
 }
 
 .cert-modal-footer {
@@ -456,10 +536,6 @@
   gap: 10px;
 }
 
-/* ==========================================================================
-   Responsive Breakpoints
-   ========================================================================== */
-
 @media (max-width: 1024px) {
   .cert-card {
     flex: 0 1 calc((100% - 20px) / 2);
@@ -478,8 +554,16 @@
   }
 
   .cert-modal-topbar,
-  .cert-modal-preview,
   .cert-modal-footer {
     padding: 14px 16px;
+  }
+
+  .cert-modal-preview {
+    padding: 14px 44px;
+  }
+
+  .cert-modal-nav {
+    width: 32px;
+    height: 32px;
   }
 }

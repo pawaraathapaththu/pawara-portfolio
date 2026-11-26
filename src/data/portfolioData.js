@@ -1,20 +1,30 @@
 /**
- * Portfolio Data Configuration
+ * Portfolio Data Configuration (Single Source of Truth)
  * -------------------------------------------------------------------
- * Update this single file to customize personal info, links, projects,
- * skills, education, and certificates across the entire portfolio.
+ * Update `DISPLAY_FIRST_NAME` and `DISPLAY_LAST_NAME` below to change
+ * your name consistently across the entire website.
+ * Note: Your uploaded University of Moratuwa & HackerRank certificates
+ * display "Pawara Madushanka". Adjust these constants if you prefer
+ * that exact form everywhere.
  */
+
+import { certificatesData, certificateCategories } from "./certificatesData";
+import { projectsData, projectCategories } from "./projectsData";
+
+const DISPLAY_FIRST_NAME = "Pawara";
+const DISPLAY_LAST_NAME = "Athapaththu";
 
 export const personalInfo = {
   brandMark: "PA",
-  firstName: "Pawara",
-  lastName: "Athapaththu",
-  fullName: "Pawara Athapaththu",
+  firstName: DISPLAY_FIRST_NAME,
+  lastName: DISPLAY_LAST_NAME,
+  fullName: `${DISPLAY_FIRST_NAME} ${DISPLAY_LAST_NAME}`,
   title: "Aspiring Software Engineer | Full-Stack Developer",
   animatedRoles: [
     "Aspiring Software Engineer",
-    "Full-Stack Web Developer",
-    "BIT Undergraduate @ UoM",
+    "Full-Stack Developer",
+    "React Developer",
+    "Problem Solver",
   ],
   location: "Sri Lanka",
   availability: {
@@ -24,17 +34,17 @@ export const personalInfo = {
   profileImage: "/profile.png",
   heroSummary:
     "Final-year Bachelor of Information Technology (BIT) candidate at the University of Moratuwa, passionate about building clean, scalable full-stack web applications and real-time user experiences.",
-  // TODO: Place your CV PDF in /public/cv.pdf and set cvUrl: "/cv.pdf"
-  cvUrl: null,
-  cvFileName: "Pawara_Athapaththu_CV.pdf",
+  // Place your CV file at /public/cv.pdf for the Download CV button to download directly
+  cvUrl: "/cv.pdf",
+  cvFileName: `${DISPLAY_FIRST_NAME}_${DISPLAY_LAST_NAME}_CV.pdf`,
   social: {
     github: "https://github.com/pawaraathapaththu",
-    // TODO: Add your LinkedIn profile URL (e.g., "https://www.linkedin.com/in/your-handle")
-    linkedin: null,
-    // TODO: Add your email address (e.g., "pawara@example.com")
-    email: null,
+    // Add your LinkedIn profile URL below; the LinkedIn button hides automatically when empty
+    linkedin: "",
+    // Add your email address below (e.g., "pawara@example.com")
+    email: "",
   },
-  // TODO: Optional free form endpoint (e.g., Formspree / Web3Forms URL) for live contact form delivery
+  // Optional free form endpoint (e.g., Formspree / Web3Forms URL) for live contact form delivery
   contactFormEndpoint: null,
 };
 
@@ -101,10 +111,10 @@ export const skillCategories = [
     title: "Frontend Development",
     description: "Building responsive, accessible, and interactive user interfaces.",
     skills: [
-      { name: "React.js", iconKey: "react" },
-      { name: "JavaScript", iconKey: "javascript" },
-      { name: "HTML", iconKey: "html" },
-      { name: "CSS", iconKey: "css" },
+      { name: "React.js", iconKey: "react", level: "Intermediate" },
+      { name: "JavaScript", iconKey: "javascript", level: "Intermediate" },
+      { name: "HTML", iconKey: "html", level: "Advanced" },
+      { name: "CSS", iconKey: "css", level: "Intermediate" },
     ],
   },
   {
@@ -112,9 +122,9 @@ export const skillCategories = [
     title: "Backend & APIs",
     description: "Designing server-side logic, authentication, and real-time data flows.",
     skills: [
-      { name: "Node.js", iconKey: "nodejs" },
-      { name: "PHP", iconKey: "php" },
-      { name: "REST APIs", iconKey: "api" },
+      { name: "Node.js", iconKey: "nodejs", level: "Intermediate" },
+      { name: "PHP", iconKey: "php", level: "Intermediate" },
+      { name: "REST APIs", iconKey: "api", level: "Intermediate" },
     ],
   },
   {
@@ -122,50 +132,25 @@ export const skillCategories = [
     title: "Database & Version Control",
     description: "Managing structured relational data and collaborative code workflows.",
     skills: [
-      { name: "MySQL", iconKey: "mysql" },
-      { name: "Git", iconKey: "git" },
-      { name: "GitHub", iconKey: "github" },
+      { name: "MySQL", iconKey: "mysql", level: "Intermediate" },
+      { name: "Git", iconKey: "git", level: "Intermediate" },
+      { name: "GitHub", iconKey: "github", level: "Intermediate" },
     ],
   },
 ];
 
-/**
- * Projects Array
- * To add a new project, append a new object following the structure below.
- * Optional fields: `image` (path in /public/projects/...), `liveUrl`, `highlights`.
- */
-export const projectsData = [
-  {
-    id: "aqua-glow-solutions",
-    title: "Aqua Glow Solutions",
-    category: "Full-Stack Web Application",
-    featured: true,
-    summary:
-      "A full-stack e-commerce and real-time auction web application designed to support both standard product purchasing and live interactive bidding workflows.",
-    highlights: [
-      "Combines e-commerce storefront browsing and order workflows with live auction bidding.",
-      "Real-time bid updates and event synchronization powered by Node.js and Socket.IO.",
-      "Structured relational data storage with MySQL and server-side integration using PHP.",
-    ],
-    technologies: ["React.js", "PHP", "MySQL", "Node.js", "Socket.IO"],
-    githubUrl: "https://github.com/pawaraathapaththu/aqua-glow-solutions",
-    liveUrl: null,
-    // TODO: Add screenshot at /public/projects/aqua-glow.png and set image: "/projects/aqua-glow.png"
-    image: null,
-  },
+export const currentlyLearning = [
+  "TypeScript",
+  "Tailwind CSS",
+  "Express.js",
+  "MongoDB",
 ];
 
-/**
- * Certificates Array
- * Add verified certificates here when ready. Example structure:
- * {
- *   id: "cert-1",
- *   title: "Certificate Name",
- *   issuer: "Issuing Organization",
- *   date: "Month Year",
- *   credentialId: "Optional ID",
- *   verifyUrl: "https://...",
- *   image: "/certificates/cert-1.png", // Optional image in /public/certificates/
- * }
- */
-export const certificatesData = [];
+export const professionalSkills = [
+  { name: "Team Work", percentage: 90 },
+  { name: "Creativity", percentage: 85 },
+  { name: "Project Management", percentage: 80 },
+  { name: "Communication", percentage: 83 },
+];
+
+export { certificatesData, certificateCategories, projectsData, projectCategories };

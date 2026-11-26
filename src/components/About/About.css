@@ -1,21 +1,18 @@
-.bento-grid {
+.about-two-col {
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 20px;
+  grid-template-columns: 1.35fr 0.9fr;
+  gap: var(--space-3);
+  align-items: stretch;
 }
 
-.bento-card {
-  padding: 28px;
-}
-
-.bento-narrative {
-  grid-column: span 7;
+.about-narrative-card {
+  padding: 30px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
 }
 
-.bento-card-label {
+.about-card-label {
   font-family: "JetBrains Mono", monospace;
   font-size: 12px;
   font-weight: 600;
@@ -24,7 +21,7 @@
   color: var(--accent);
 }
 
-.bento-paragraphs {
+.about-paragraphs {
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -36,40 +33,76 @@
   color: var(--muted);
 }
 
-.bento-facts-grid {
-  grid-column: span 5;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 14px;
+.about-keyword {
+  color: var(--text-strong);
+  font-weight: 600;
 }
 
-.bento-fact-card {
-  padding: 17px 20px;
+.about-info-chips {
   display: flex;
-  align-items: center;
-  gap: 15px;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 8px;
 }
 
-.bento-pillar {
-  grid-column: span 6;
+.about-info-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 12px;
+  border-radius: var(--radius-full);
+  background: rgba(56, 189, 248, 0.09);
+  border: 1px solid rgba(56, 189, 248, 0.22);
+  font-size: 12.5px;
+}
+
+.about-info-chip svg {
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.about-chip-label {
+  color: var(--muted);
+}
+
+.about-chip-value {
+  color: var(--text-strong);
+  font-weight: 600;
+}
+
+.about-side-column {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--space-3);
 }
 
-.bento-pillar-header {
+.about-pillar-card {
+  flex: 1;
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+}
+
+.about-pillar-card:hover {
+  transform: translateY(-3px);
+}
+
+.about-pillar-header {
   display: flex;
   align-items: center;
   gap: 14px;
 }
 
-.bento-pillar-title {
-  font-size: 17.5px;
+.about-pillar-title {
+  font-size: 18px;
   font-weight: 700;
   color: var(--text-strong);
 }
 
-.bento-pillar-detail {
+.about-pillar-detail {
   font-size: 14.5px;
   line-height: 1.68;
   color: var(--muted);
@@ -78,40 +111,23 @@
 .highlight-icon {
   display: grid;
   place-items: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
   background: rgba(56, 189, 248, 0.12);
   color: var(--accent);
   flex-shrink: 0;
 }
 
-.highlight-label {
-  display: block;
-  font-size: 11.5px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--muted);
-  margin-bottom: 2px;
-}
-
-.highlight-value {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--text-strong);
-}
-
 @media (max-width: 900px) {
-  .bento-narrative,
-  .bento-facts-grid,
-  .bento-pillar {
-    grid-column: span 12;
+  .about-two-col {
+    grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 640px) {
-  .bento-card {
+  .about-narrative-card,
+  .about-pillar-card {
     padding: 22px;
   }
 }

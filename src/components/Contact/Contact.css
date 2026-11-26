@@ -1,4 +1,40 @@
+.contact-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-bg-glow {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  width: 680px;
+  height: 420px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse,
+    rgba(56, 189, 248, 0.12) 0%,
+    rgba(139, 92, 246, 0.08) 45%,
+    transparent 72%
+  );
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+  animation: contactGlowFloat 12s ease-in-out infinite;
+}
+
+@keyframes contactGlowFloat {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-48%, -54%) scale(1.06);
+  }
+}
+
 .contact-grid {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 0.9fr 1.3fr;
   gap: 26px;
@@ -18,22 +54,38 @@
   gap: 16px;
 }
 
+.contact-card:hover {
+  transform: translateY(-2px);
+}
+
 .contact-card-icon {
   display: grid;
   place-items: center;
   width: 44px;
   height: 44px;
-  border-radius: 12px;
+  border-radius: var(--radius-sm);
   background: rgba(56, 189, 248, 0.12);
   color: var(--accent);
   flex-shrink: 0;
+}
+
+.contact-card-content {
+  min-width: 0;
+  flex: 1;
 }
 
 .contact-card-title {
   font-size: 14px;
   font-weight: 700;
   color: var(--text-strong);
-  margin-bottom: 2px;
+  margin-bottom: 3px;
+}
+
+.contact-email-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
 }
 
 .contact-card-link {
@@ -46,6 +98,29 @@
   text-decoration: underline;
 }
 
+.copy-email-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.28);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.copy-email-btn:hover {
+  background: rgba(56, 189, 248, 0.2);
+}
+
+.copy-email-btn:active {
+  transform: scale(0.97);
+}
+
 .contact-card-text,
 .contact-card-pending {
   font-size: 13.5px;
@@ -56,6 +131,86 @@
   font-family: "JetBrains Mono", monospace;
   font-size: 12px;
 }
+
+/* Social Link Icons with Hover Lift, Glow & Tooltip */
+
+.contact-socials-card {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contact-socials-label {
+  font-size: 12.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.contact-socials-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.contact-social-icon-btn {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  background: rgba(148, 163, 184, 0.08);
+  border: 1px solid var(--border);
+  color: var(--text);
+  transition:
+    transform var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.contact-social-icon-btn:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: 0 10px 22px -8px rgba(56, 189, 248, 0.45);
+}
+
+.contact-social-icon-btn:active {
+  transform: scale(0.97);
+}
+
+.contact-social-icon-btn::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: #0f172a;
+  color: #f8fafc;
+  border: 1px solid var(--border-strong);
+  font-size: 11.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+.contact-social-icon-btn:hover::after,
+.contact-social-icon-btn:focus-visible::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ==========================================================================
+   Floating-Label Glass Contact Form
+   ========================================================================== */
 
 .contact-form {
   padding: 30px;
@@ -73,36 +228,65 @@
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 6px;
 }
 
-.form-group label {
-  font-size: 13.5px;
-  font-weight: 600;
-  color: var(--text-strong);
+.floating-field {
+  position: relative;
 }
 
-.form-group input,
-.form-group textarea {
+.floating-field input,
+.floating-field textarea {
   width: 100%;
-  padding: 12px 14px;
-  border-radius: 10px;
+  padding: 20px 14px 8px;
+  border-radius: var(--radius-sm);
   background: var(--input-bg);
   border: 1px solid var(--border);
   color: var(--text-strong);
   font-size: 14.5px;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-.form-group input:focus,
-.form-group textarea:focus {
+.floating-field textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.floating-field label {
+  position: absolute;
+  left: 14px;
+  top: 15px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+  pointer-events: none;
+  transform-origin: left top;
+  transition:
+    transform var(--transition-fast),
+    color var(--transition-fast),
+    top var(--transition-fast),
+    font-size var(--transition-fast);
+}
+
+.floating-field input:focus + label,
+.floating-field input:not(:placeholder-shown) + label,
+.floating-field textarea:focus + label,
+.floating-field textarea:not(:placeholder-shown) + label {
+  top: 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.floating-field input:focus,
+.floating-field textarea:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.16);
 }
 
-.form-group input[aria-invalid="true"],
-.form-group textarea[aria-invalid="true"] {
+.floating-field input[aria-invalid="true"],
+.floating-field textarea[aria-invalid="true"] {
   border-color: #f87171;
 }
 
@@ -120,7 +304,7 @@
   align-items: flex-start;
   gap: 10px;
   padding: 12px 14px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   font-size: 13.5px;
   line-height: 1.5;
 }
@@ -158,6 +342,27 @@
 
 .btn-submit {
   align-self: flex-start;
+}
+
+/* Copy Email Toast */
+
+.copy-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 400;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: var(--radius-full);
+  background: rgba(15, 23, 42, 0.94);
+  border: 1px solid rgba(56, 189, 248, 0.45);
+  color: #f8fafc;
+  font-size: 13.5px;
+  font-weight: 600;
+  box-shadow: var(--shadow-card);
 }
 
 @media (max-width: 900px) {

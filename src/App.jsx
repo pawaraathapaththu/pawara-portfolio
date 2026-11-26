@@ -1,18 +1,21 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, lazy, Suspense } from "react";
 import { MotionConfig, AnimatePresence } from "framer-motion";
+import Lenis from "lenis";
 import Preloader from "./components/Preloader/Preloader";
 import BackgroundEffects from "./components/BackgroundEffects/BackgroundEffects";
+import CustomCursor from "./components/CustomCursor/CustomCursor";
 import Navbar from "./components/Navbar/Navbar";
 import Hero from "./components/Hero/Hero";
-import About from "./components/About/About";
-import Education from "./components/Education/Education";
-import Skills from "./components/Skills/Skills";
-import Projects from "./components/Projects/Projects";
-import Certificates from "./components/Certificates/Certificates";
-import Contact from "./components/Contact/Contact";
-import Footer from "./components/Footer/Footer";
 import { navLinks } from "./data/portfolioData";
 import "./App.css";
+
+const About = lazy(() => import("./components/About/About"));
+const Education = lazy(() => import("./components/Education/Education"));
+const Skills = lazy(() => import("./components/Skills/Skills"));
+const Projects = lazy(() => import("./components/Projects/Projects"));
+const Certificates = lazy(() => import("./components/Certificates/Certificates"));
+const Contact = lazy(() => import("./components/Contact/Contact"));
+const Footer = lazy(() => import("./components/Footer/Footer"));
 
 function App() {
   const [dark, setDark] = useState(() => {
@@ -25,7 +28,6 @@ function App() {
   });
 
   const [showPreloader, setShowPreloader] = useState(true);
-
   const [activeSection, setActiveSection] = useState("home");
 
   const handlePreloaderComplete = useCallback(() => {
@@ -33,6 +35,12 @@ function App() {
   }, []);
 
   useEffect(() => {
+    document.documentElement.classList.toggle("light", !dark);
+    document.documentElement.classList.toggle("dark", dark);
+    const themeMeta = document.querySelector('meta[name="theme-color"]');
+    if (themeMeta) {
+      themeMeta.setAttribute("content", dark ? "#070b14" : "#f6f8fc");
+    }
     try {
       localStorage.setItem("portfolio-theme", dark ? "dark" : "light");
     } catch {
@@ -40,6 +48,47 @@ function App() {
     }
   }, [dark]);
 
+  // Lenis inertial smooth scrolling (respects prefers-reduced-motion)
+  useEffect(() => {
+    const prefersReduced =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) return undefined;
+
+    const lenis = new Lenis({
+      duration: 1.05,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+    });
+
+    let rafId = null;
+    const raf = (time) => {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    };
+    rafId = requestAnimationFrame(raf);
+
+    const handleAnchorClick = (e) => {
+      const anchor = e.target.closest('a[href^="#"]');
+      if (!anchor) return;
+      const hash = anchor.getAttribute("href");
+      if (!hash || hash === "#") return;
+      const targetEl = document.querySelector(hash);
+      if (!targetEl) return;
+      e.preventDefault();
+      lenis.scrollTo(targetEl, { offset: -92 });
+    };
+
+    document.addEventListener("click", handleAnchorClick);
+
+    return () => {
+      if (rafId !== null) cancelAnimationFrame(rafId);
+      document.removeEventListener("click", handleAnchorClick);
+      lenis.destroy();
+    };
+  }, []);
+
+  // Deterministic scroll spy
   useEffect(() => {
     const sectionIds = navLinks.map((item) => item.id);
     let rafId = null;
@@ -50,7 +99,6 @@ function App() {
       const navHeight = navEl ? navEl.getBoundingClientRect().height : 72;
       const triggerOffset = navHeight + 36;
 
-      // Highlight the last section when scrolled to the bottom of the page
       const atBottom =
         window.innerHeight + window.scrollY >=
         document.documentElement.scrollHeight - 24;
@@ -96,6 +144,8 @@ function App() {
           )}
         </AnimatePresence>
 
+        <CustomCursor />
+
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
@@ -111,15 +161,19 @@ function App() {
 
         <main id="main-content">
           <Hero isReady={!showPreloader} />
-          <About />
-          <Education />
-          <Skills />
-          <Projects />
-          <Certificates />
-          <Contact />
+          <Suspense fallback={<div className="section" aria-hidden="true" />}>
+            <About />
+            <Education />
+            <Skills />
+            <Projects />
+            <Certificates />
+            <Contact />
+          </Suspense>
         </main>
 
-        <Footer />
+        <Suspense fallback={null}>
+          <Footer />
+        </Suspense>
       </div>
     </MotionConfig>
   );

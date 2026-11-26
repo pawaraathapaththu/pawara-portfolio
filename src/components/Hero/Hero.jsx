@@ -1,15 +1,23 @@
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { ArrowRight, Download, Mail, MapPin, GraduationCap, Info } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import {
+  motion,
+  useInView,
+  useReducedMotion,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "framer-motion";
+import { ArrowRight, Download, Mail, MapPin, GraduationCap } from "lucide-react";
 import { FaGithub, FaLinkedin, FaReact, FaNodeJs, FaPhp, FaDatabase } from "react-icons/fa";
-import { personalInfo } from "../../data/portfolioData";
+import { personalInfo, projectsData, certificatesData } from "../../data/portfolioData";
+import HeroParticles from "./HeroParticles";
 import "./Hero.css";
 
 const floatingTechIcons = [
-  { id: "react", label: "React.js", Icon: FaReact, color: "#38bdf8", className: "orbit-icon-1" },
-  { id: "nodejs", label: "Node.js", Icon: FaNodeJs, color: "#4ade80", className: "orbit-icon-2" },
-  { id: "php", label: "PHP", Icon: FaPhp, color: "#a78bfa", className: "orbit-icon-3" },
-  { id: "mysql", label: "MySQL", Icon: FaDatabase, color: "#22d3ee", className: "orbit-icon-4" },
+  { id: "react", label: "React.js", Icon: FaReact, color: "#38bdf8", armClass: "orbit-arm-1", speed: 3.6 },
+  { id: "nodejs", label: "Node.js", Icon: FaNodeJs, color: "#4ade80", armClass: "orbit-arm-2", speed: 4.3 },
+  { id: "mysql", label: "MySQL", Icon: FaDatabase, color: "#22d3ee", armClass: "orbit-arm-3", speed: 3.9 },
+  { id: "php", label: "PHP", Icon: FaPhp, color: "#a78bfa", armClass: "orbit-arm-4", speed: 4.9 },
 ];
 
 function useTypewriter(words) {
@@ -46,23 +54,121 @@ function useTypewriter(words) {
   return words[wordIndex].slice(0, charIndex);
 }
 
-function Hero({ isReady = true }) {
-  const typedRole = useTypewriter(personalInfo.animatedRoles);
-  const [cvNotice, setCvNotice] = useState(false);
+function CountUpStat({ value, suffix = "", label }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.5 });
+  const prefersReducedMotion = useReducedMotion();
+  const [count, setCount] = useState(0);
 
-  const handleCvClick = () => {
-    if (personalInfo.cvUrl) {
-      const link = document.createElement("a");
-      link.href = personalInfo.cvUrl;
-      link.download = personalInfo.cvFileName || "CV.pdf";
-      link.click();
-      return;
-    }
-    setCvNotice((prev) => !prev);
+  useEffect(() => {
+    if (!isInView || prefersReducedMotion) return undefined;
+
+    const duration = 900;
+    const start = performance.now();
+    let frameId = null;
+
+    const step = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.round(eased * value));
+      if (progress < 1) {
+        frameId = requestAnimationFrame(step);
+      }
+    };
+
+    frameId = requestAnimationFrame(step);
+    return () => {
+      if (frameId !== null) cancelAnimationFrame(frameId);
+    };
+  }, [isInView, value, prefersReducedMotion]);
+
+  const displayCount = prefersReducedMotion ? value : count;
+
+  return (
+    <div ref={ref} className="hero-stat-item">
+      <span className="hero-stat-value">
+        {displayCount}
+        {suffix}
+      </span>
+      <span className="hero-stat-label">{label}</span>
+    </div>
+  );
+}
+
+function MagneticButton({ children, className, ...props }) {
+  const prefersReducedMotion = useReducedMotion();
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const springX = useSpring(x, { stiffness: 260, damping: 18 });
+  const springY = useSpring(y, { stiffness: 260, damping: 18 });
+
+  const handleMouseMove = (e) => {
+    if (prefersReducedMotion) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const dx = (e.clientX - (rect.left + rect.width / 2)) * 0.18;
+    const dy = (e.clientY - (rect.top + rect.height / 2)) * 0.18;
+    x.set(dx);
+    y.set(dy);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
   };
 
   return (
-    <section className="hero-section" id="home">
+    <motion.a
+      className={className}
+      style={prefersReducedMotion ? undefined : { x: springX, y: springY }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      {...props}
+    >
+      {children}
+    </motion.a>
+  );
+}
+
+function Hero({ isReady = true }) {
+  const prefersReducedMotion = useReducedMotion();
+  const typedRole = useTypewriter(personalInfo.animatedRoles);
+  const hasLinkedIn = Boolean(
+    personalInfo.social.linkedin && personalInfo.social.linkedin.trim() !== ""
+  );
+
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const smoothX = useSpring(mouseX, { stiffness: 120, damping: 22 });
+  const smoothY = useSpring(mouseY, { stiffness: 120, damping: 22 });
+
+  const tiltX = useTransform(smoothY, [-0.5, 0.5], [7, -7]);
+  const tiltY = useTransform(smoothX, [-0.5, 0.5], [-7, 7]);
+  const iconParallaxX = useTransform(smoothX, [-0.5, 0.5], [-10, 10]);
+  const iconParallaxY = useTransform(smoothY, [-0.5, 0.5], [-10, 10]);
+
+  const handleHeroMouseMove = (e) => {
+    if (prefersReducedMotion) return;
+    if (typeof window !== "undefined" && window.innerWidth < 901) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
+    mouseY.set((e.clientY - rect.top) / rect.height - 0.5);
+  };
+
+  const handleHeroMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
+
+  const yearsLearning = Math.max(1, new Date().getFullYear() - 2023);
+
+  return (
+    <section
+      className="hero-section"
+      id="home"
+      onMouseMove={handleHeroMouseMove}
+      onMouseLeave={handleHeroMouseLeave}
+    >
+      <HeroParticles />
       <div className="container hero-grid">
         <motion.div
           className="hero-content"
@@ -80,8 +186,22 @@ function Hero({ isReady = true }) {
           <p className="hero-greeting">Hello, I&apos;m</p>
 
           <h1 className="hero-title">
-            {personalInfo.firstName}{" "}
-            <span className="gradient-text-animated">{personalInfo.lastName}</span>
+            <motion.span
+              className="hero-name-word"
+              initial={{ opacity: 0, y: 18 }}
+              animate={isReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+              transition={{ duration: 0.5, delay: 0.14 }}
+            >
+              {personalInfo.firstName}
+            </motion.span>{" "}
+            <motion.span
+              className="hero-name-word gradient-text-animated"
+              initial={{ opacity: 0, y: 18 }}
+              animate={isReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+              transition={{ duration: 0.5, delay: 0.26 }}
+            >
+              {personalInfo.lastName}
+            </motion.span>
           </h1>
 
           <div className="hero-role-wrapper" aria-live="polite">
@@ -105,20 +225,19 @@ function Hero({ isReady = true }) {
           </div>
 
           <div className="hero-actions">
-            <a href="#projects" className="btn btn-primary">
+            <MagneticButton href="#projects" className="btn btn-primary">
               <span>View Projects</span>
               <ArrowRight size={17} />
-            </a>
+            </MagneticButton>
 
-            <button
-              type="button"
+            <a
+              href={personalInfo.cvUrl || "/cv.pdf"}
+              download={personalInfo.cvFileName || "cv.pdf"}
               className="btn btn-secondary"
-              onClick={handleCvClick}
-              aria-expanded={!personalInfo.cvUrl ? cvNotice : undefined}
             >
               <Download size={17} />
               <span>Download CV</span>
-            </button>
+            </a>
 
             <a href="#contact" className="btn btn-ghost">
               <Mail size={17} />
@@ -126,23 +245,13 @@ function Hero({ isReady = true }) {
             </a>
           </div>
 
-          <AnimatePresence>
-            {cvNotice && !personalInfo.cvUrl && (
-              <motion.div
-                className="inline-notice"
-                role="status"
-                initial={{ opacity: 0, y: -6 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -6 }}
-              >
-                <Info size={16} />
-                <span>
-                  CV file not yet uploaded. Add your PDF at <code>public/cv.pdf</code> and set{" "}
-                  <code>cvUrl: &quot;/cv.pdf&quot;</code> in <code>src/data/portfolioData.js</code>.
-                </span>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <div className="hero-stats" aria-label="Portfolio highlights">
+            <CountUpStat value={projectsData.length} label="Projects" />
+            <div className="hero-stat-divider" aria-hidden="true" />
+            <CountUpStat value={certificatesData.length} label="Certificates" />
+            <div className="hero-stat-divider" aria-hidden="true" />
+            <CountUpStat value={yearsLearning} suffix="+" label="Years Learning" />
+          </div>
 
           <div className="hero-socials">
             <a
@@ -156,7 +265,7 @@ function Hero({ isReady = true }) {
               <span>GitHub</span>
             </a>
 
-            {personalInfo.social.linkedin ? (
+            {hasLinkedIn && (
               <a
                 href={personalInfo.social.linkedin}
                 target="_blank"
@@ -167,15 +276,6 @@ function Hero({ isReady = true }) {
                 <FaLinkedin size={18} />
                 <span>LinkedIn</span>
               </a>
-            ) : (
-              <span
-                className="social-pill social-pill-muted"
-                title="LinkedIn URL not configured yet"
-                aria-label="LinkedIn URL pending"
-              >
-                <FaLinkedin size={18} />
-                <span>LinkedIn (Pending)</span>
-              </span>
             )}
           </div>
         </motion.div>
@@ -186,8 +286,14 @@ function Hero({ isReady = true }) {
           animate={isReady ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.94 }}
           transition={{ duration: 0.7, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="profile-composition">
-            <div className="profile-backdrop-ring" aria-hidden="true" />
+          <motion.div
+            className="profile-composition"
+            style={
+              prefersReducedMotion
+                ? undefined
+                : { rotateX: tiltX, rotateY: tiltY, transformPerspective: 900 }
+            }
+          >
             <div className="profile-frame-outer">
               <div className="profile-glow" aria-hidden="true" />
               <div className="profile-ring" aria-hidden="true" />
@@ -203,25 +309,49 @@ function Hero({ isReady = true }) {
             {floatingTechIcons.map((item, idx) => {
               const TechIcon = item.Icon;
               return (
-                <motion.div
-                  key={item.id}
-                  className={`orbit-tech-badge glass-card ${item.className}`}
-                  title={item.label}
-                  aria-label={item.label}
-                  animate={{ y: [0, idx % 2 === 0 ? -7 : 7, 0] }}
-                  transition={{
-                    duration: 3.6 + idx * 0.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                >
-                  <TechIcon size={20} style={{ color: item.color }} />
-                </motion.div>
+                <div key={item.id} className={`orbit-arm ${item.armClass}`}>
+                  <motion.div
+                    className="orbit-tech-badge glass-card"
+                    title={item.label}
+                    aria-label={item.label}
+                    style={
+                      prefersReducedMotion
+                        ? undefined
+                        : { x: iconParallaxX, y: iconParallaxY }
+                    }
+                  >
+                    <motion.span
+                      className="orbit-tech-inner"
+                      animate={
+                        prefersReducedMotion
+                          ? undefined
+                          : { y: [0, idx % 2 === 0 ? -6 : 6, 0] }
+                      }
+                      transition={{
+                        duration: item.speed,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                    >
+                      <TechIcon size={20} style={{ color: item.color }} />
+                    </motion.span>
+                  </motion.div>
+                </div>
               );
             })}
-          </div>
+          </motion.div>
         </motion.div>
       </div>
+
+      <a
+        href="#about"
+        className="scroll-down-indicator"
+        aria-label="Scroll down to About section"
+      >
+        <span className="mouse-shell" aria-hidden="true">
+          <span className="mouse-dot" />
+        </span>
+      </a>
     </section>
   );
 }
