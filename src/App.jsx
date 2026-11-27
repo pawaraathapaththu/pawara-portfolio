@@ -17,6 +17,8 @@ const Certificates = lazy(() => import("./components/Certificates/Certificates")
 const Contact = lazy(() => import("./components/Contact/Contact"));
 const Footer = lazy(() => import("./components/Footer/Footer"));
 
+const PRELOADER_SESSION_KEY = "portfolio-preloader-seen";
+
 function App() {
   const [dark, setDark] = useState(() => {
     try {
@@ -27,10 +29,25 @@ function App() {
     }
   });
 
-  const [showPreloader, setShowPreloader] = useState(true);
+  const [showPreloader, setShowPreloader] = useState(() => {
+    try {
+      const reducedMotion =
+        typeof window !== "undefined" &&
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reducedMotion) return false;
+      return sessionStorage.getItem(PRELOADER_SESSION_KEY) !== "1";
+    } catch {
+      return true;
+    }
+  });
   const [activeSection, setActiveSection] = useState("home");
 
   const handlePreloaderComplete = useCallback(() => {
+    try {
+      sessionStorage.setItem(PRELOADER_SESSION_KEY, "1");
+    } catch {
+      // Ignore storage errors in restricted environments
+    }
     setShowPreloader(false);
   }, []);
 
