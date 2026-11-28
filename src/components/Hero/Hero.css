@@ -35,31 +35,26 @@
   border-radius: var(--radius-full);
   font-size: 13px;
   font-weight: 500;
-  color: #4ade80;
-  background: rgba(34, 197, 94, 0.1);
-  border: 1px solid rgba(34, 197, 94, 0.28);
+  color: var(--text-body);
+  background: var(--card);
+  border: 1px solid var(--border);
   margin-bottom: 14px;
-}
-
-.portfolio.light .availability-badge {
-  color: #15803d;
-  background: rgba(34, 197, 94, 0.12);
 }
 
 .status-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #22c55e;
+  background: var(--success);
   animation: pulseDot 2.2s infinite;
 }
 
 @keyframes pulseDot {
   0%, 100% {
-    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5);
+    box-shadow: 0 0 0 0 var(--success-border);
   }
   50% {
-    box-shadow: 0 0 0 7px rgba(34, 197, 94, 0);
+    box-shadow: 0 0 0 7px transparent;
   }
 }
 
@@ -97,7 +92,7 @@
   flex-wrap: wrap;
   font-size: clamp(19px, 2.2vw, 24px);
   font-weight: 600;
-  color: var(--accent);
+  color: var(--primary);
   white-space: normal;
   overflow: visible;
 }
@@ -107,14 +102,14 @@
   width: 2px;
   height: 1.1em;
   margin-left: 4px;
-  background: var(--accent);
+  background: var(--primary);
   animation: blinkCursor 1s steps(2, start) infinite;
 }
 
 .hero-description {
   font-size: 16px;
   line-height: 1.68;
-  color: var(--muted);
+  color: var(--text-body);
   max-width: 540px;
   margin-bottom: 16px;
 }
@@ -131,11 +126,11 @@
   align-items: center;
   gap: 7px;
   font-size: 13.5px;
-  color: var(--muted);
+  color: var(--text-body);
 }
 
 .hero-meta-item svg {
-  color: var(--accent);
+  color: var(--primary);
 }
 
 .hero-actions {
@@ -198,15 +193,15 @@
   border-radius: var(--radius-sm);
   font-size: 13.5px;
   font-weight: 500;
-  color: var(--muted);
-  background: var(--bg-elevated);
+  color: var(--text-body);
+  background: var(--card);
   border: 1px solid var(--border);
   transition: border-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
 }
 
 .social-pill:hover {
-  color: var(--accent);
-  border-color: var(--accent);
+  color: var(--primary);
+  border-color: var(--primary);
   transform: translateY(-2px);
 }
 
@@ -241,9 +236,14 @@
   position: absolute;
   inset: -20px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #3b82f6, #22d3ee, #8b5cf6);
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--primary) 13%, transparent),
+    color-mix(in srgb, var(--accent) 9%, transparent),
+    transparent 70%
+  );
   filter: blur(70px);
-  opacity: 0.3;
+  opacity: 0.9;
   animation: glowPulse 6s ease-in-out infinite;
   will-change: transform, opacity;
   pointer-events: none;
@@ -251,11 +251,11 @@
 
 @keyframes glowPulse {
   0%, 100% {
-    opacity: 0.25;
+    opacity: 0.8;
     transform: scale(1);
   }
   50% {
-    opacity: 0.34;
+    opacity: 1;
     transform: scale(1.05);
   }
 }
@@ -265,7 +265,7 @@
   inset: 0;
   border-radius: 50%;
   padding: 3px;
-  background: conic-gradient(from 0deg, #38bdf8, #3b82f6, #8b5cf6, #22d3ee, #38bdf8);
+  background: conic-gradient(from 0deg, var(--primary), var(--secondary), var(--accent), var(--primary));
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask-composite: exclude;
@@ -285,7 +285,7 @@
   height: calc(100% - 14px);
   border-radius: 50%;
   overflow: hidden;
-  background: #070b14;
+  background: var(--bg);
 }
 
 .profile-image-container::after {
@@ -293,7 +293,7 @@
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  background: radial-gradient(circle, transparent 60%, rgba(7, 11, 20, 0.3) 100%);
+  background: radial-gradient(circle, transparent 60%, var(--vignette) 100%);
   pointer-events: none;
 }
 
@@ -381,7 +381,7 @@
 }
 
 .scroll-down-indicator:hover {
-  color: var(--accent);
+  color: var(--primary);
 }
 
 .mouse-shell {
@@ -398,7 +398,7 @@
   width: 4px;
   height: 6px;
   border-radius: 999px;
-  background: var(--accent);
+  background: var(--primary);
   animation: mouseBounce 1.8s ease-in-out infinite;
 }
 

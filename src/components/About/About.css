@@ -18,7 +18,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--accent);
+  color: var(--primary);
 }
 
 .about-paragraphs {
@@ -30,11 +30,11 @@
 .about-paragraph {
   font-size: 15.5px;
   line-height: 1.78;
-  color: var(--muted);
+  color: var(--text-body);
 }
 
 .about-keyword {
-  color: var(--text-strong);
+  color: var(--text-heading);
   font-weight: 600;
 }
 
@@ -52,22 +52,22 @@
   gap: 7px;
   padding: 7px 12px;
   border-radius: var(--radius-full);
-  background: rgba(56, 189, 248, 0.09);
-  border: 1px solid rgba(56, 189, 248, 0.22);
+  background: var(--card);
+  border: 1px solid var(--border);
   font-size: 12.5px;
 }
 
 .about-info-chip svg {
-  color: var(--accent);
+  color: var(--primary);
   flex-shrink: 0;
 }
 
 .about-chip-label {
-  color: var(--muted);
+  color: var(--text-muted);
 }
 
 .about-chip-value {
-  color: var(--text-strong);
+  color: var(--text-heading);
   font-weight: 600;
 }
 
@@ -105,7 +105,7 @@
 .about-pillar-detail {
   font-size: 14.5px;
   line-height: 1.68;
-  color: var(--muted);
+  color: var(--text-body);
 }
 
 .highlight-icon {
@@ -114,8 +114,8 @@
   width: 44px;
   height: 44px;
   border-radius: var(--radius-sm);
-  background: rgba(56, 189, 248, 0.12);
-  color: var(--accent);
+  background: var(--primary-soft);
+  color: var(--primary);
   flex-shrink: 0;
 }
 

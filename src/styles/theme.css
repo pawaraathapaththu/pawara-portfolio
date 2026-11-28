@@ -1,0 +1,103 @@
+/* ==========================================================================
+   Centralized Theme Colour System
+   Dark (default) and Light mode CSS variables.
+   ========================================================================== */
+
+:root {
+  /* Core Palette — Dark */
+  --bg: #070b14;
+  --bg-soft: #0b1224;
+  --card: rgba(255, 255, 255, 0.04);
+  --border: rgba(255, 255, 255, 0.09);
+  --border-strong: rgba(255, 255, 255, 0.22);
+
+  --text-heading: #f1f5f9;
+  --text-body: #cbd5e1;
+  --text-muted: #94a3b8;
+
+  --primary: #3b82f6;
+  --secondary: #22d3ee;
+  --accent: #8b5cf6;
+  --success: #22c55e;
+
+  /* Derived Semantic Tokens */
+  --primary-soft: rgba(59, 130, 246, 0.14);
+  --primary-border: rgba(59, 130, 246, 0.35);
+  --secondary-soft: rgba(34, 211, 238, 0.12);
+  --on-primary: #070b14;
+
+  --grad-btn: linear-gradient(135deg, var(--primary), var(--secondary));
+  --grad-hero-name: linear-gradient(90deg, var(--primary), var(--secondary));
+
+  --success-text: #4ade80;
+  --success-soft: rgba(34, 197, 94, 0.12);
+  --success-border: rgba(34, 197, 94, 0.28);
+
+  --danger-text: #f87171;
+  --danger-soft: rgba(239, 68, 68, 0.12);
+  --danger-border: rgba(239, 68, 68, 0.28);
+
+  --nav-bg: rgba(7, 11, 20, 0.82);
+  --input-bg: rgba(11, 18, 36, 0.72);
+  --surface-subtle: rgba(255, 255, 255, 0.04);
+  --media-bg: #0b1224;
+  --overlay-backdrop: rgba(7, 11, 20, 0.78);
+  --selection-bg: rgba(59, 130, 246, 0.3);
+  --vignette: rgba(7, 11, 20, 0.3);
+
+  --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.25);
+  --shadow-nav: 0 10px 30px -12px rgba(0, 0, 0, 0.25);
+  --shadow-nav-scrolled: 0 14px 34px -10px rgba(0, 0, 0, 0.35);
+
+  /* Compatibility Aliases */
+  --bg-elevated: var(--card);
+  --text: var(--text-body);
+  --text-strong: var(--text-heading);
+  --muted: var(--text-muted);
+}
+
+html.light,
+.portfolio.light,
+[data-theme="light"] {
+  /* Core Palette — Light */
+  --bg: #f6f8fc;
+  --bg-soft: #eef3fb;
+  --card: #ffffff;
+  --border: rgba(15, 23, 42, 0.08);
+  --border-strong: rgba(15, 23, 42, 0.18);
+
+  --text-heading: #0f172a;
+  --text-body: #334155;
+  --text-muted: #64748b;
+
+  --primary: #2563eb;
+  --secondary: #0891b2;
+  --accent: #7c3aed;
+  --success: #16a34a;
+
+  /* Derived Semantic Tokens */
+  --primary-soft: rgba(37, 99, 235, 0.14);
+  --primary-border: rgba(37, 99, 235, 0.32);
+  --secondary-soft: rgba(8, 145, 178, 0.1);
+  --on-primary: #ffffff;
+
+  --success-text: #15803d;
+  --success-soft: rgba(22, 163, 74, 0.1);
+  --success-border: rgba(22, 163, 74, 0.26);
+
+  --danger-text: #dc2626;
+  --danger-soft: rgba(220, 38, 38, 0.1);
+  --danger-border: rgba(220, 38, 38, 0.26);
+
+  --nav-bg: rgba(255, 255, 255, 0.88);
+  --input-bg: #ffffff;
+  --surface-subtle: rgba(15, 23, 42, 0.04);
+  --media-bg: #eef3fb;
+  --overlay-backdrop: rgba(15, 23, 42, 0.55);
+  --selection-bg: rgba(37, 99, 235, 0.18);
+  --vignette: rgba(15, 23, 42, 0.12);
+
+  --shadow-card: 0 10px 30px -10px rgba(15, 23, 42, 0.08);
+  --shadow-nav: 0 10px 30px -12px rgba(15, 23, 42, 0.08);
+  --shadow-nav-scrolled: 0 14px 34px -10px rgba(15, 23, 42, 0.12);
+}

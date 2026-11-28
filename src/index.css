@@ -9,13 +9,9 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 96px;
-  background-color: #070b14;
-  color: #e2e8f0;
-}
-
-html.light {
-  background-color: #f6f8fc;
-  color: #1e293b;
+  background-color: var(--bg);
+  color: var(--text-body);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 body {
@@ -59,12 +55,12 @@ img {
 }
 
 :focus-visible {
-  outline: 2px solid #38bdf8;
+  outline: 2px solid var(--primary);
   outline-offset: 3px;
 }
 
 ::selection {
-  background: rgba(56, 189, 248, 0.3);
+  background: var(--selection-bg);
   color: inherit;
 }
 

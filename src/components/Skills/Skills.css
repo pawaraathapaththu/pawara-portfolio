@@ -10,7 +10,7 @@
   height: 3px;
   border-radius: 999px;
   transform-origin: left;
-  background: linear-gradient(90deg, var(--accent), var(--accent-blue), var(--accent-purple));
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
 }
 
 .skills-grid {
@@ -37,11 +37,9 @@
   inset: 0;
   pointer-events: none;
   opacity: 0;
-  background: radial-gradient(
-    260px circle at var(--mouse-x) var(--mouse-y),
-    rgba(56, 189, 248, 0.14),
-    transparent 75%
-  );
+  background: radial-gradient(260px circle at var(--mouse-x) var(--mouse-y),
+      var(--primary-soft),
+      transparent 75%);
   transition: opacity var(--transition-fast);
 }
 
@@ -67,21 +65,21 @@
   width: 42px;
   height: 42px;
   border-radius: var(--radius-sm);
-  background: rgba(56, 189, 248, 0.12);
-  color: var(--accent);
+  background: var(--primary-soft);
+  color: var(--primary);
   flex-shrink: 0;
 }
 
 .skill-category-title {
   font-size: 18px;
   font-weight: 700;
-  color: var(--text-strong);
+  color: var(--text-heading);
   margin-bottom: 4px;
 }
 
 .skill-category-desc {
   font-size: 13.5px;
-  color: var(--muted);
+  color: var(--text-body);
   line-height: 1.55;
 }
 
@@ -100,15 +98,15 @@
   gap: 8px;
   padding: 10px 14px;
   border-radius: var(--radius-sm);
-  background: rgba(148, 163, 184, 0.06);
+  background: var(--surface-subtle);
   border: 1px solid var(--border);
   transition: transform var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast);
 }
 
 .skill-row:hover {
   transform: translateY(-2px);
-  border-color: var(--accent);
-  background: rgba(56, 189, 248, 0.09);
+  border-color: var(--primary);
+  background: var(--primary-soft);
 }
 
 .skill-row-top {
@@ -129,7 +127,7 @@
   align-items: center;
 }
 
-.portfolio.light .skill-pill-icon {
+[data-theme="light"] .skill-pill-icon {
   filter: saturate(1.1) brightness(0.85);
 }
 
@@ -146,31 +144,27 @@
   padding: 3px 9px;
   border-radius: var(--radius-full);
   border: 1px solid var(--border);
-  color: var(--muted);
-  background: rgba(148, 163, 184, 0.08);
+  color: var(--text-body);
+  background: var(--card);
 }
 
 .skill-level-badge.level-advanced {
-  color: #4ade80;
-  border-color: rgba(34, 197, 94, 0.3);
-  background: rgba(34, 197, 94, 0.1);
+  color: var(--primary);
+  border-color: var(--primary-border);
+  background: var(--primary-soft);
 }
 
 .skill-level-badge.level-intermediate {
-  color: var(--accent);
-  border-color: rgba(56, 189, 248, 0.28);
-  background: rgba(56, 189, 248, 0.1);
-}
-
-.portfolio.light .skill-level-badge.level-advanced {
-  color: #15803d;
+  color: var(--text-body);
+  border-color: var(--border-strong);
+  background: var(--surface-subtle);
 }
 
 .skill-bar-track {
   width: 100%;
   height: 4px;
   border-radius: var(--radius-full);
-  background: rgba(148, 163, 184, 0.14);
+  background: var(--surface-subtle);
   overflow: hidden;
 }
 
@@ -180,7 +174,7 @@
   height: 100%;
   transform-origin: left;
   border-radius: var(--radius-full);
-  background: linear-gradient(90deg, var(--accent), var(--accent-blue), var(--accent-purple));
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
 }
 
 /* Infinite Marquee Strip */
@@ -208,6 +202,7 @@
   from {
     transform: translateX(0);
   }
+
   to {
     transform: translateX(-50%);
   }
@@ -249,7 +244,7 @@
 }
 
 .learning-label svg {
-  color: var(--accent-purple);
+  color: var(--primary);
 }
 
 .learning-chips {
@@ -266,33 +261,9 @@
   font-family: "JetBrains Mono", monospace;
   font-size: 12.5px;
   font-weight: 600;
-  color: var(--accent-purple);
-  background: rgba(139, 92, 246, 0.12);
-  border: 1px solid rgba(139, 92, 246, 0.28);
-}
-
-.learning-chip::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
-  transform: translateX(-100%);
-  animation: chipShimmer 3.6s ease-in-out infinite;
-}
-
-@keyframes chipShimmer {
-  0%, 60% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-.portfolio.light .learning-chip {
-  color: #5b21b6;
-  background: rgba(99, 102, 241, 0.1);
-  border-color: rgba(99, 102, 241, 0.26);
+  color: var(--primary);
+  background: var(--primary-soft);
+  border: 1px solid var(--primary-border);
 }
 
 @media (max-width: 1024px) {
@@ -334,7 +305,7 @@
   width: 48px;
   height: 3px;
   border-radius: var(--radius-full);
-  background: linear-gradient(90deg, var(--accent-blue), var(--accent));
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
 }
 
 .prof-skills-grid {
@@ -348,9 +319,9 @@
   position: relative;
   height: 100%;
   padding: 24px 16px;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  background: var(--card);
+  border: 1px solid var(--border);
   backdrop-filter: blur(var(--blur-md));
   -webkit-backdrop-filter: blur(var(--blur-md));
   box-shadow: var(--shadow-card);
@@ -363,36 +334,13 @@
   transition:
     transform var(--transition-base),
     border-color var(--transition-base),
+    background-color 0.3s ease,
     box-shadow var(--transition-base);
 }
 
-.portfolio.light .prof-skill-card {
-  background: var(--bg-elevated);
-  border-color: var(--border);
-}
-
-.prof-skill-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.45), rgba(34, 211, 238, 0.45));
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  -webkit-mask-composite: xor;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity var(--transition-base);
-}
-
 .prof-skill-card:hover {
-  transform: translateY(-6px);
-}
-
-.prof-skill-card:hover::before {
-  opacity: 1;
+  transform: translateY(-4px);
+  border-color: var(--border-strong);
 }
 
 .prof-ring-wrap {
@@ -405,34 +353,25 @@
 
 .prof-ring-svg {
   display: block;
-  transition: filter var(--transition-base);
-}
-
-.prof-skill-card:hover .prof-ring-svg {
-  filter: drop-shadow(0 0 12px rgba(34, 211, 238, 0.4));
 }
 
 .prof-ring-track {
-  stroke: rgba(255, 255, 255, 0.08);
-}
-
-.portfolio.light .prof-ring-track {
-  stroke: rgba(15, 23, 42, 0.1);
+  stroke: var(--border);
 }
 
 .prof-ring-value {
   position: absolute;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 22px;
   font-weight: 700;
-  color: var(--text-strong);
+  color: var(--text-heading);
   font-variant-numeric: tabular-nums;
 }
 
 .prof-skill-label {
   font-size: 14.5px;
   font-weight: 600;
-  color: var(--muted);
+  color: var(--text-body);
 }
 
 @media (max-width: 1024px) {

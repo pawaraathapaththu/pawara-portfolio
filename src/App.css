@@ -1,35 +1,15 @@
 /* ==========================================================================
-   Global Design System Tokens, Shared Primitives & Layout Utilities
+   Global Layout, Spacing Scale, Section Rhythm & Shared Primitives
+   (Colour tokens are centralized in src/styles/theme.css)
    ========================================================================== */
 
 .portfolio {
-  /* Color Palette — Dark Navy */
-  --bg: #070b14;
-  --bg-elevated: rgba(13, 20, 38, 0.72);
-  --bg-elevated-hover: rgba(19, 29, 54, 0.88);
-  --nav-bg: rgba(9, 15, 29, 0.74);
-  --text: #e2e8f0;
-  --text-strong: #f8fafc;
-  --muted: #b4bdd0;
-  --accent: #38bdf8;
-  --accent-blue: #3b82f6;
-  --accent-purple: #8b5cf6;
-  --border: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(56, 189, 248, 0.36);
-  --specular: rgba(255, 255, 255, 0.08);
-  --grid-line: rgba(148, 163, 184, 0.045);
-  --input-bg: rgba(15, 23, 42, 0.65);
-
   /* Shadows, Blur & Radii */
-  --shadow-card: 0 24px 48px -24px rgba(2, 6, 23, 0.82);
-  --shadow-nav: 0 16px 40px -16px rgba(2, 6, 23, 0.7);
-  --shadow-nav-scrolled: 0 20px 44px -14px rgba(2, 6, 23, 0.85);
-  --shadow-glow: 0 16px 32px -10px rgba(56, 189, 248, 0.55);
   --blur-md: 16px;
   --blur-lg: 22px;
   --radius-sm: 10px;
   --radius-md: 14px;
-  --radius-lg: 20px;
+  --radius-lg: 16px;
   --radius-full: 999px;
 
   /* 8px Spacing Scale */
@@ -41,6 +21,14 @@
   --space-6: 48px;
   --space-12: 96px;
 
+  /* Radii & Blur */
+  --blur-md: 16px;
+  --blur-lg: 22px;
+  --radius-sm: 10px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-full: 999px;
+
   /* Transitions */
   --transition-fast: 0.2s cubic-bezier(0.22, 1, 0.36, 1);
   --transition-base: 0.3s cubic-bezier(0.22, 1, 0.36, 1);
@@ -48,31 +36,9 @@
   position: relative;
   min-height: 100vh;
   background-color: var(--bg);
-  color: var(--text);
-  transition: background-color var(--transition-base), color var(--transition-base);
+  color: var(--text-body);
+  transition: background-color 0.3s ease, color 0.3s ease;
   overflow-x: clip;
-}
-
-.portfolio.light {
-  --bg: #f6f8fc;
-  --bg-elevated: rgba(255, 255, 255, 0.86);
-  --bg-elevated-hover: rgba(255, 255, 255, 0.98);
-  --nav-bg: rgba(255, 255, 255, 0.82);
-  --text: #1e293b;
-  --text-strong: #090d16;
-  --muted: #475569;
-  --accent: #0284c7;
-  --accent-blue: #2563eb;
-  --accent-purple: #6366f1;
-  --border: rgba(15, 23, 42, 0.1);
-  --border-strong: rgba(2, 132, 199, 0.36);
-  --specular: rgba(255, 255, 255, 0.9);
-  --shadow-card: 0 20px 44px -24px rgba(15, 23, 42, 0.12);
-  --shadow-nav: 0 14px 34px -18px rgba(15, 23, 42, 0.14);
-  --shadow-nav-scrolled: 0 18px 38px -14px rgba(15, 23, 42, 0.18);
-  --shadow-glow: 0 14px 28px -10px rgba(2, 132, 199, 0.38);
-  --grid-line: rgba(15, 23, 42, 0.04);
-  --input-bg: rgba(255, 255, 255, 0.94);
 }
 
 .skip-link {
@@ -81,8 +47,8 @@
   left: var(--space-2);
   z-index: 999;
   padding: 10px var(--space-2);
-  background: var(--accent);
-  color: #050914;
+  background: var(--primary);
+  color: var(--on-primary);
   font-weight: 600;
   border-radius: var(--radius-sm);
   transition: top var(--transition-fast);
@@ -93,16 +59,55 @@
 }
 
 .container {
+  position: relative;
+  z-index: 2;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 var(--space-3);
 }
 
+/* ==========================================================================
+   Section Rhythm, Faint 1px Border Dividers & Ultra-Soft Accent Glows
+   ========================================================================== */
+
 .section {
   position: relative;
   z-index: 1;
   padding: var(--space-12) 0;
+  border-top: 1px solid var(--border);
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  overflow: clip;
+  border-top: 1px solid var(--border);
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+#home {
+  background-color: var(--bg);
+}
+
+#about {
+  background-color: var(--bg-soft);
+}
+
+#education {
+  background-color: var(--bg);
+}
+
+#skills {
+  background-color: var(--bg-soft);
+}
+
+#projects {
+  background-color: var(--bg);
+}
+
+#certificates {
+  background-color: var(--bg-soft);
+}
+
+#contact {
+  background-color: var(--bg);
 }
 
 .section-header {
@@ -117,48 +122,49 @@
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--primary);
   margin-bottom: 12px;
+  transition: color 0.3s ease;
 }
 
 .section-title {
   font-size: clamp(28px, 3.6vw, 42px);
   font-weight: 700;
-  line-height: 1.16;
+  line-height: 1.15;
   letter-spacing: -0.025em;
-  color: var(--text-strong);
+  color: var(--text-heading);
   margin-bottom: 12px;
 }
 
 .section-subtitle {
   font-size: 16px;
-  color: var(--muted);
+  color: var(--text-body);
   line-height: 1.7;
+  max-width: 65ch;
 }
 
 .glass-card {
-  background: var(--bg-elevated);
+  background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   backdrop-filter: blur(var(--blur-md));
   -webkit-backdrop-filter: blur(var(--blur-md));
-  box-shadow: inset 0 1px 0 0 var(--specular), var(--shadow-card);
+  box-shadow: var(--shadow-card);
   transition:
     transform var(--transition-base),
     border-color var(--transition-base),
-    background-color var(--transition-base),
+    background-color 0.3s ease,
     box-shadow var(--transition-base);
 }
 
 .glass-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-4px);
   border-color: var(--border-strong);
-  background: var(--bg-elevated-hover);
 }
 
 .gradient-text-animated {
-  background: linear-gradient(120deg, var(--accent) 0%, var(--accent-blue) 45%, var(--accent-purple) 80%, var(--accent) 100%);
-  background-size: 220% auto;
+  background: var(--grad-hero-name);
+  background-size: 200% auto;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -167,7 +173,7 @@
 
 @keyframes gradientFlow {
   to {
-    background-position: 220% center;
+    background-position: 200% center;
   }
 }
 
@@ -185,21 +191,15 @@
   font-size: 12.5px;
   font-weight: 500;
   font-family: "JetBrains Mono", monospace;
-  color: var(--accent);
-  background: rgba(56, 189, 248, 0.09);
-  border: 1px solid rgba(56, 189, 248, 0.22);
-}
-
-.portfolio.light .tech-tag {
-  background: rgba(2, 132, 199, 0.08);
-  border-color: rgba(2, 132, 199, 0.22);
+  color: var(--text-body);
+  background: var(--card);
+  border: 1px solid var(--border);
 }
 
 /* Shared Buttons */
 
 .btn {
   position: relative;
-  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -212,8 +212,10 @@
   border: 1px solid transparent;
   transition:
     transform var(--transition-fast),
-    background-color var(--transition-fast),
+    background-color 0.3s ease,
     border-color var(--transition-fast),
+    color 0.3s ease,
+    color var(--transition-fast),
     box-shadow var(--transition-fast);
 }
 
@@ -237,55 +239,30 @@
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #2563eb, #0ea5e9, #22d3ee);
-  background-size: 180% 180%;
-  color: #ffffff;
-  box-shadow: 0 12px 28px -12px rgba(14, 165, 233, 0.65);
-}
-
-.btn-primary::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -120%;
-  width: 70%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
-  transform: skewX(-20deg);
-  transition: left 0.55s ease;
-  pointer-events: none;
-}
-
-.btn-primary:hover:not(:disabled)::after {
-  left: 140%;
-}
-
-.btn-primary:hover:not(:disabled) {
-  box-shadow: var(--shadow-glow);
+  background: var(--grad-btn);
+  color: var(--on-primary);
 }
 
 .btn-secondary {
-  background: var(--bg-elevated);
+  background: var(--card);
   border-color: var(--border);
-  color: var(--text-strong);
-  backdrop-filter: blur(12px);
+  color: var(--text-heading);
 }
 
 .btn-secondary:hover:not(:disabled) {
-  border-color: var(--accent);
-  color: var(--accent);
-  box-shadow: 0 0 20px -6px rgba(56, 189, 248, 0.35);
+  border-color: var(--primary);
+  color: var(--primary);
 }
 
 .btn-ghost {
   background: transparent;
   border-color: var(--border);
-  color: var(--muted);
+  color: var(--text-body);
 }
 
 .btn-ghost:hover:not(:disabled) {
-  border-color: var(--accent);
-  color: var(--text-strong);
+  border-color: var(--primary);
+  color: var(--text-heading);
 }
 
 @media (max-width: 640px) {
