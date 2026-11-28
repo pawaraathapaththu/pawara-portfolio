@@ -9,7 +9,12 @@ import {
 } from "framer-motion";
 import { ArrowRight, Download, Mail, MapPin, GraduationCap } from "lucide-react";
 import { FaGithub, FaLinkedin, FaReact, FaNodeJs, FaPhp, FaDatabase } from "react-icons/fa";
-import { personalInfo, projectsData, certificatesData } from "../../data/portfolioData";
+import {
+  personalInfo,
+  projectsData,
+  certificatesData,
+  START_YEAR,
+} from "../../data/portfolioData";
 import HeroParticles from "./HeroParticles";
 import "./Hero.css";
 
@@ -35,7 +40,7 @@ function useTypewriter(words) {
     if (!isDeleting && charIndex < currentWord.length) {
       timeout = setTimeout(() => setCharIndex((c) => c + 1), 58);
     } else if (!isDeleting && charIndex === currentWord.length) {
-      timeout = setTimeout(() => setIsDeleting(true), 2100);
+      timeout = setTimeout(() => setIsDeleting(true), 1800);
     } else if (isDeleting && charIndex > 0) {
       timeout = setTimeout(() => setCharIndex((c) => c - 1), 32);
     } else if (isDeleting && charIndex === 0) {
@@ -159,7 +164,7 @@ function Hero({ isReady = true }) {
     mouseY.set(0);
   };
 
-  const yearsLearning = Math.max(1, new Date().getFullYear() - 2023);
+  const yearsLearning = Math.max(1, new Date().getFullYear() - START_YEAR);
 
   return (
     <section
@@ -176,7 +181,7 @@ function Hero({ isReady = true }) {
           animate={isReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
           transition={{ duration: 0.65, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
         >
-          {personalInfo.availability.active && (
+          {personalInfo.showAvailabilityBadge && personalInfo.availability.active && (
             <div className="availability-badge">
               <span className="status-dot" aria-hidden="true" />
               <span>{personalInfo.availability.label}</span>
@@ -301,6 +306,10 @@ function Hero({ isReady = true }) {
                 <img
                   src={personalInfo.profileImage}
                   alt={personalInfo.fullName}
+                  width={460}
+                  height={460}
+                  loading="eager"
+                  fetchPriority="high"
                   className="profile-photo"
                 />
               </div>

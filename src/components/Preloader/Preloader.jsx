@@ -201,7 +201,7 @@ function Preloader({ onComplete }) {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.35, delay: 0.45 }}
         >
-          ASPIRING SOFTWARE ENGINEER
+          SOFTWARE ENGINEER
         </motion.p>
 
         <motion.div

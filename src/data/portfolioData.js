@@ -3,9 +3,6 @@
  * -------------------------------------------------------------------
  * Update `DISPLAY_FIRST_NAME` and `DISPLAY_LAST_NAME` below to change
  * your name consistently across the entire website.
- * Note: Your uploaded University of Moratuwa & HackerRank certificates
- * display "Pawara Madushanka". Adjust these constants if you prefer
- * that exact form everywhere.
  */
 
 import { certificatesData, certificateCategories } from "./certificatesData";
@@ -13,27 +10,29 @@ import { projectsData, projectCategories } from "./projectsData";
 
 const DISPLAY_FIRST_NAME = "Pawara";
 const DISPLAY_LAST_NAME = "Athapaththu";
+export const START_YEAR = 2023;
 
 export const personalInfo = {
   brandMark: "PA",
   firstName: DISPLAY_FIRST_NAME,
   lastName: DISPLAY_LAST_NAME,
   fullName: `${DISPLAY_FIRST_NAME} ${DISPLAY_LAST_NAME}`,
-  title: "Aspiring Software Engineer | Full-Stack Developer",
+  title: "Software Engineer | Full-Stack Developer",
   animatedRoles: [
-    "Aspiring Software Engineer",
+    "Software Engineer",
     "Full-Stack Developer",
     "React Developer",
     "Problem Solver",
   ],
   location: "Sri Lanka",
+  showAvailabilityBadge: true,
   availability: {
     active: true,
-    label: "Available for Software Engineering Internships",
+    label: "Open to new opportunities",
   },
-  profileImage: "/profile.png",
+  profileImage: "/profile.jpg",
   heroSummary:
-    "Final-year Bachelor of Information Technology (BIT) candidate at the University of Moratuwa, passionate about building clean, scalable full-stack web applications and real-time user experiences.",
+    "Software engineer who builds clean, scalable full-stack web applications and real-time user experiences.",
   // Place your CV file at /public/cv.pdf for the Download CV button to download directly
   cvUrl: "/cv.pdf",
   cvFileName: `${DISPLAY_FIRST_NAME}_${DISPLAY_LAST_NAME}_CV.pdf`,
@@ -62,9 +61,9 @@ export const aboutData = {
   eyebrow: "About Me",
   heading: "Building practical software with curiosity and discipline",
   paragraphs: [
-    "I am a Bachelor of Information Technology (BIT) undergraduate at the University of Moratuwa, having recently completed my final-year examinations and currently awaiting results. My academic journey has given me a solid foundation in software engineering principles, database design, and web application architecture.",
+    "I hold a Bachelor of Information Technology (BIT) from the University of Moratuwa, with a solid foundation in software engineering principles, database design, and web application architecture.",
     "Through hands-on academic and personal projects, I have gained practical experience developing full-stack applications—from responsive React interfaces and RESTful APIs to relational MySQL databases and real-time communication with Node.js and Socket.IO.",
-    "As an aspiring Software Engineer seeking an internship opportunity, I am eager to contribute to a collaborative engineering team, learn industry best practices, write maintainable code, and grow by solving meaningful real-world problems.",
+    "As a Software Engineer, I am focused on contributing to collaborative engineering teams, applying industry best practices, writing maintainable code, and solving meaningful real-world problems.",
   ],
   highlights: [
     {
@@ -73,7 +72,7 @@ export const aboutData = {
     },
     {
       label: "Academic Status",
-      value: "Final Year Exams Completed",
+      value: "BIT, University of Moratuwa",
     },
     {
       label: "Location",
@@ -91,11 +90,11 @@ export const educationData = [
     id: "uom-bit",
     institution: "University of Moratuwa",
     degree: "Bachelor of Information Technology (BIT)",
-    period: "May 2023 – Present",
-    status: "Final Year Examinations Completed – Awaiting Results",
+    period: "2023 – Present",
+    status: "BIT, University of Moratuwa",
     location: "Sri Lanka",
     description:
-      "Comprehensive undergraduate degree program focused on software engineering, web technologies, database management systems, data structures, and system design.",
+      "Comprehensive degree program focused on software engineering, web technologies, database management systems, data structures, and system design.",
     focusAreas: [
       "Full-Stack Web Development",
       "Database Design & SQL",
